@@ -1,26 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  Button,
+  Modal,
+  ModalContent,
+  ModalFooter,
+} from "@deque/cauldron-react";
+import { useModal } from "./hooks/useModal";
 
-function App() {
+const App = () => {
+  const { show, toggleModal } = useModal();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+    <div className="center-content">
+      <h1 className="App-header">Accessible Modal Example</h1>
+      <p>
+        A{" "}
         <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="https://www.w3.org/TR/WCAG22/#dfn-keyboard-interface"
+          target="terms"
         >
-          Learn React
-        </a>
-      </header>
+          keyboard interface
+        </a>{" "}
+        allows users to provide keystroke inputs to programs.
+      </p>
+      <Button
+        className="styled-button"
+        variant="secondary"
+        onClick={toggleModal}
+      >
+        Toggle Modal
+      </Button>
+      <p>
+        Ensuring keyboard control for all functionality is{" "}
+        <span>
+          <strong>Sufficient</strong> to meet{" "}
+          <a href="https://www.w3.org/WAI/WCAG22/Understanding/keyboard">
+            2.1.1: Keyboard
+          </a>
+        </span>
+        .
+      </p>{" "}
+      <Modal
+        className="modal"
+        heading={<h2 className="Dialog__heading">Accessible Modal</h2>}
+        show={show}
+        onClose={toggleModal}
+        closeButtonText=""
+      >
+        <ModalContent>
+          Use the keyboard to navigate the modal content.
+        </ModalContent>
+        <ModalFooter>
+          <Button className="styled-button" onClick={toggleModal}>
+            Ok
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
-}
+};
 
 export default App;
